@@ -8,6 +8,28 @@ const timeout = function(s) {
 };
 // https://forkify-api.herokuapp.com/v2
 ///////////////////////////////////////
-console.log("TEST");
+const showRecipe = async function() {
+    try {
+        const res = await fetch("https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886");
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        let { recipe } = data.data;
+        recipe = {
+            id: recipe.id,
+            title: recipe.title,
+            image: recipe.image_url,
+            sourceUrl: recipe.source_url,
+            publisher: recipe.publisher,
+            servings: recipe.servings,
+            cookingTime: recipe.cooking_time,
+            ingredients: recipe.ingredients
+        };
+        console.log(recipe);
+    // console.log(res, data);
+    } catch (err) {
+        alert(err);
+    }
+};
+showRecipe();
 
 //# sourceMappingURL=forkify-app.62406edb.js.map
