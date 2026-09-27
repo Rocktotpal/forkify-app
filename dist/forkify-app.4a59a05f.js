@@ -727,8 +727,21 @@ const timeout = function(s) {
 };
 // https://forkify-api.herokuapp.com/v2
 ///////////////////////////////////////
+const loadSpinner = function(parentEl) {
+    const markup = `
+      <div class="spinner">
+        <svg>
+          <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
+        </svg>
+      </div>
+  `;
+    parentEl.innerHTML = "";
+    parentEl.insertAdjacentHTML("afterbegin", markup);
+};
 const showRecipe = async function() {
     try {
+        loadSpinner(recipeContainer);
+        // Fetching Recipe
         const res = await fetch("https://forkify-api.jonas.io/api/v2/recipes/664c8f193e7aa067e94e8482");
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
@@ -745,6 +758,7 @@ const showRecipe = async function() {
         };
         console.log(recipe);
         // console.log(res, data);
+        // Rendering Recipe
         const markup = `
     <figure class="recipe__fig">
           <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img" />
