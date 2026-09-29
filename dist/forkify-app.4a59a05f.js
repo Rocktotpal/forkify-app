@@ -747,8 +747,10 @@ const showRecipe = async function() {
         console.log(id);
         if (!id) return;
         loadSpinner(recipeContainer);
-        // Fetching Recipe
-        // Rendering Recipe
+        // 1. Loading Recipe
+        await _modelJs.loadRecipe(id);
+        const { recipe } = _modelJs.state;
+        // 2. Rendering Recipe
         const markup = `
     <figure class="recipe__fig">
           <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img" />
